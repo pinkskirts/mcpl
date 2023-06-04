@@ -70,6 +70,21 @@ public class Syntactic {
 	}
     }
 
+    public void logicalTerm() {
+	Token token = _source.get(_tokenCount);
+	TokenTag tokenTag = _source.get(_tokenCount).getTokenTag();
+	if(tokenTag == TokenTag.INTEGER ||
+	   tokenTag == TokenTag.FLOAT ||
+	   tokenTag == TokenTag.IDENTIFIER ||
+	   tokenTag == TokenTag.OPARENTHESES) {
+	    arithmeticExpr();
+	    logicalOper();
+	    arithmeticExpr();
+	} else {
+	    throw new IllegalArgumentException("\n Syntactical error! " + token.toString());
+	}
+    }
+
     public void arithmeticOper() {
 	TokenTag tokenTag = _source.get(_tokenCount).getTokenTag();
 	if(tokenTag == TokenTag.PLUS) {
@@ -99,6 +114,38 @@ public class Syntactic {
 	_arithmeticExpr();
     }
 
+    public void logicalOper() {
+	TokenTag tokenTag = _source.get(_tokenCount).getTokenTag();
+	if(tokenTag == TokenTag.NOTEQUALS) {
+	    match(TokenTag.NOTEQUALS);
+	} else if(tokenTag == TokenTag.EQUALS) {
+	    match(TokenTag.EQUALS);
+	} else if(tokenTag == TokenTag.GREATER) {
+	    match(TokenTag.GREATER);
+	} else if(tokenTag == TokenTag.GREATEREQUALS) {
+	    match(TokenTag.GREATEREQUALS);
+	} else if(tokenTag == TokenTag.LESS) {
+	    match(TokenTag.LESS);
+	} else if(tokenTag == TokenTag.LESSEQUALS) {
+	    match(TokenTag.LESSEQUALS);
+	}
+    }
+
+    public void _logicalExpr() {
+	TokenTag tokenTag = _source.get(_tokenCount).getTokenTag();
+	if(tokenTag == TokenTag.AND || tokenTag == TokenTag.OR || tokenTag == TokenTag.NOTEQUALS) {
+	    logicalOper();
+	    logicalExpr();
+	}
+    }
+
+    public void logicalExpr() {
+	TokenTag tokenTag = _source.get(_tokenCount).getTokenTag();
+	if(tokenTag == TokenTag.NOT) {
+	    match(TokenTag.NOT);
+	}
+	logicalTerm();
+    }
     public void varDeclare() {
 	match(TokenTag.VARIABLE);
 	match(TokenTag.TYPE);
