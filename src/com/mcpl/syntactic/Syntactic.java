@@ -16,7 +16,11 @@ public class Syntactic {
     }
 
     public void analyze() {
-	func();
+	while(_tokenCount < _source.size() && _source.get(_tokenCount).getTokenTag() != TokenTag.EOF) {
+	    if(_source.get(_tokenCount).getTokenTag() == TokenTag.FUNCTION) {
+		func();
+	    }
+	}
     }
 
     public Token lookAhead() {
@@ -81,7 +85,10 @@ public class Syntactic {
 
     public void _arithmeticExpr() {
 	TokenTag tokenTag = _source.get(_tokenCount).getTokenTag();
-	if(tokenTag == TokenTag.PLUS || tokenTag == TokenTag.MINUS || tokenTag == TokenTag.MULTI || tokenTag == TokenTag.DIVISOR) {
+	if(tokenTag == TokenTag.PLUS ||
+	   tokenTag == TokenTag.MINUS ||
+	   tokenTag == TokenTag.MULTI ||
+	   tokenTag == TokenTag.DIVISOR) {
 	    arithmeticOper();
 	    arithmeticExpr();
 	}
