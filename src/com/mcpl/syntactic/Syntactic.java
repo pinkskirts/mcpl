@@ -33,7 +33,7 @@ public class Syntactic {
 	if(token.getTokenTag() == tag) {
 	    System.out.print(token.getAttribute() + " ");
 	} else {
-	    throw new IllegalArgumentException("Syntactical error!");
+	    throw new IllegalArgumentException("\n Syntactical error! " + token.toString());
 	} 
     }
 
@@ -42,7 +42,7 @@ public class Syntactic {
 	match(TokenTag.TYPE);
 	match(TokenTag.IDENTIFIER);
 	match(TokenTag.OBRACE);
-	if(_source.get(_tokenCount+1).getTokenTag() != TokenTag.CBRACE) { //lookAhead + 1
+	if(_source.get(_tokenCount).getTokenTag() != TokenTag.CBRACE) {
 	    inst();
 	}
 	match(TokenTag.CBRACE);
@@ -55,7 +55,7 @@ public class Syntactic {
 	match(TokenTag.VARIABLE);
 	match(TokenTag.TYPE);
 	match(TokenTag.IDENTIFIER);
-	if(_source.get(_tokenCount+1).getTokenTag() != TokenTag.SEMICOLON) { // lookahead + 1
+	if(_source.get(_tokenCount).getTokenTag() != TokenTag.SEMICOLON) {
 	    match(TokenTag.ASSIGNMENT);
 	    match(TokenTag.INTEGER); // PLACEHOLDER
 	}
@@ -63,7 +63,7 @@ public class Syntactic {
     }
 
     public void inst() {
-	if(_source.get(_tokenCount+1).getTokenTag() != TokenTag.VARIABLE) { // lookahead + 1
+	if(_source.get(_tokenCount).getTokenTag() == TokenTag.VARIABLE) {
 	    varDeclare();
 	}
     }
