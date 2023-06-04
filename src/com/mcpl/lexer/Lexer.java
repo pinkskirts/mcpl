@@ -9,27 +9,27 @@ import com.mcpl.lexer.Token;
 import com.mcpl.lexer.TokenTag;
 
 public class Lexer {
-    private final Pattern pattern;
-    private final Matcher matcher;
-    private final List<Token> tokens;
+    private final Pattern _pattern;
+    private final Matcher _matcher;
+    private final List<Token> _tokens;
 
     public Lexer(String source) {
-	pattern = Pattern.compile(TokenTag.tokenPatterns());
-	matcher = pattern.matcher(source);
-	tokens = new ArrayList<>();
+	_pattern = Pattern.compile(TokenTag.tokenPatterns());
+	_matcher = _pattern.matcher(source);
+	_tokens = new ArrayList<>();
     }
 
     public List<Token> analyze() {	
-	while(matcher.find()) {
-	    String atribute = matcher.group();
-	    if(!atribute.matches(TokenTag.WHITESPACE.regex()) && !atribute.matches(TokenTag.COMMENT.regex())) {
-		TokenTag tokenTag = findTokenTag(atribute);
-		Token token = new Token(tokenTag, atribute);
-		tokens.add(token);
+	while(_matcher.find()) {
+	    String attribute = _matcher.group();
+	    if(!attribute.matches(TokenTag.WHITESPACE.regex()) && !attribute.matches(TokenTag.COMMENT.regex())) {
+		TokenTag tokenTag = findTokenTag(attribute);
+		Token token = new Token(tokenTag, attribute);
+		_tokens.add(token);
 	    }
 	}
-	tokens.add(new Token(TokenTag.EOF, TokenTag.EOF.regex()));
-	return tokens;
+	_tokens.add(new Token(TokenTag.EOF, TokenTag.EOF.regex()));
+	return _tokens;
     }
 
     public TokenTag findTokenTag(String token) {

@@ -4,14 +4,14 @@ import com.mcpl.lexer.TokenTag;
 
 public class Token {
     private final TokenTag _tag;
-    private final String _atribute;
+    private final String _attribute;
 
-    public Token(TokenTag tag, String atribute){
+    public Token(TokenTag tag, String attribute) {
 	_tag = tag;
-	_atribute = atribute;
+	_attribute = attribute;
     }
 
-    public String toString(){
-	return "<" + _tag + "," + _atribute + ">";
+    public String toString() {
+	return "<" + _tag + "," + _attribute + ">";
     }
 }
