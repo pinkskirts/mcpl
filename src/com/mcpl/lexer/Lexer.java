@@ -73,12 +73,18 @@ public class Lexer {
 	    return TokenTag.WHILE;
 	} else if (token.matches(TokenTag.FUNCTION.regex())) {
 	    return TokenTag.FUNCTION;
+	} else if (token.matches(TokenTag.OBRACE.regex())) {
+	    return TokenTag.OBRACE;
+	} else if (token.matches(TokenTag.CBRACE.regex())) {
+	    return TokenTag.CBRACE;
 	} else if (token.matches(TokenTag.VARIABLE.regex())) {
 	    return TokenTag.VARIABLE;
-	} else if (token.matches(TokenTag.TYPEINT.regex())) {
-	    return TokenTag.TYPEINT;
+	} else if (token.matches(TokenTag.TYPE.regex())) {
+	    return TokenTag.TYPE;
 	} else if (token.matches(TokenTag.IDENTIFIER.regex())) {
 	    return TokenTag.IDENTIFIER;
+	} else if (token.matches(TokenTag.SEMICOLON.regex())) {
+	    return TokenTag.SEMICOLON;
 	} else {
 	    throw new IllegalArgumentException("Lexical problem; Invalid Token: " + token);
 	}

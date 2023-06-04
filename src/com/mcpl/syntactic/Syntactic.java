@@ -16,17 +16,7 @@ public class Syntactic {
     }
 
     public void analyze() {
-	switch(lookAhead().getTokenTag()) {
-	case FUNCTION:
-	    System.out.println("lever:");
-	    analyze();
-	    break;
-	case EOF:
-	    System.out.println("<EOF>");
-	    break;
-	default:
-	    throw new IllegalArgumentException("Syntactical error!");
-	}
+	func();
     }
 
     public Token lookAhead() {
@@ -36,5 +26,45 @@ public class Syntactic {
 	    return token;
 	}
 	throw new IllegalArgumentException("Syntactical error!");
+    }
+
+    public void match(TokenTag tag) {
+	Token token = lookAhead();
+	if(token.getTokenTag() == tag) {
+	    System.out.print(token.getAttribute() + " ");
+	} else {
+	    throw new IllegalArgumentException("Syntactical error!");
+	} 
+    }
+
+    public void func() {
+	match(TokenTag.FUNCTION);
+	match(TokenTag.TYPE);
+	match(TokenTag.IDENTIFIER);
+	match(TokenTag.OBRACE);
+	if(_source.get(_tokenCount+1).getTokenTag() != TokenTag.CBRACE) { //lookAhead + 1
+	    inst();
+	}
+	match(TokenTag.CBRACE);
+    }
+
+    public void arithmeticExpr() {
+    }
+
+    public void varDeclare() {
+	match(TokenTag.VARIABLE);
+	match(TokenTag.TYPE);
+	match(TokenTag.IDENTIFIER);
+	if(_source.get(_tokenCount+1).getTokenTag() != TokenTag.SEMICOLON) { // lookahead + 1
+	    match(TokenTag.ASSIGNMENT);
+	    match(TokenTag.INTEGER); // PLACEHOLDER
+	}
+	match(TokenTag.SEMICOLON);
+    }
+
+    public void inst() {
+	if(_source.get(_tokenCount+1).getTokenTag() != TokenTag.VARIABLE) { // lookahead + 1
+	    varDeclare();
+	}
     }
 }

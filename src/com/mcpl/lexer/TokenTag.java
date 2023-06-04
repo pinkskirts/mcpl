@@ -22,10 +22,13 @@ public enum TokenTag {
     ELSE("sculk"),
     WHILE("repiater"),
     FUNCTION("lever:"),
+    OBRACE("\\{"),
+    CBRACE("\\}"),
     VARIABLE("craft:"),
-    TYPEINT("int"),
+    TYPE("int|void"),
     IDENTIFIER("[A-Za-z_]\\w*"),
     WHITESPACE("\\s"),
+    SEMICOLON(";"),
     EOF("<EOF>");
 
     private final String regex;
