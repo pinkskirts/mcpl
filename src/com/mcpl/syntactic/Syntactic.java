@@ -146,6 +146,39 @@ public class Syntactic {
 	}
 	logicalTerm();
     }
+
+    public void ifStatement() {
+	match(TokenTag.IF);
+	match(TokenTag.OPARENTHESES);
+	logicalExpr();
+	match(TokenTag.CPARENTHESES);
+	match(TokenTag.OBRACE);
+	if(_source.get(_tokenCount).getTokenTag() != TokenTag.CBRACE) {
+	    inst();
+	}
+	match(TokenTag.CBRACE);
+	if(_source.get(_tokenCount).getTokenTag() == TokenTag.ELSE) {
+	    match(TokenTag.ELSE);
+	    match(TokenTag.OBRACE);
+	    if(_source.get(_tokenCount).getTokenTag() != TokenTag.CBRACE) {
+		inst();
+	    }
+	    match(TokenTag.CBRACE);
+	}
+    }
+
+    public void whileStatement() {
+	match(TokenTag.WHILE);
+	match(TokenTag.OPARENTHESES);
+	logicalExpr();
+	match(TokenTag.CPARENTHESES);
+	match(TokenTag.OBRACE);
+	if(_source.get(_tokenCount).getTokenTag() != TokenTag.CBRACE) {
+	    inst();
+	}
+	match(TokenTag.CBRACE);
+    }
+
     public void varDeclare() {
 	match(TokenTag.VARIABLE);
 	match(TokenTag.TYPE);
@@ -158,8 +191,16 @@ public class Syntactic {
     }
 
     public void inst() {
-	if(_source.get(_tokenCount).getTokenTag() == TokenTag.VARIABLE) {
-	    varDeclare();
+	while(_tokenCount < _source.size() && _source.get(_tokenCount).getTokenTag() != TokenTag.CBRACE) {
+	    if(_source.get(_tokenCount).getTokenTag() == TokenTag.VARIABLE) {
+		varDeclare();
+	    } else if (_source.get(_tokenCount).getTokenTag() == TokenTag.IF) {
+		ifStatement();
+	    } else if (_source.get(_tokenCount).getTokenTag() == TokenTag.WHILE) {
+		whileStatement();
+	    } else {
+		throw new IllegalArgumentException("\n Syntactical error! " + _source.get(_tokenCount).toString());
+	    }
 	}
     }
 }
