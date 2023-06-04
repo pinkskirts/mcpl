@@ -14,4 +14,12 @@ public class Token {
     public String toString() {
 	return "<" + _tag + "," + _attribute + ">";
     }
+
+    public TokenTag getTokenTag() {
+	return _tag;
+    }
+
+    public String getAttribute() {
+	return _attribute;
+    }
 }
