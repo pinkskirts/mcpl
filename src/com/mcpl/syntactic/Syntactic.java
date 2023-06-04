@@ -8,9 +8,11 @@ import com.mcpl.lexer.TokenTag;
 
 public class Syntactic {
     private final List<Token> _source;
+    private int _tokenCount;
 
     public Syntactic (List<Token> source) {
 	_source = source;
+	_tokenCount = 0;
     }
 
     public void analyze() {
@@ -31,5 +33,14 @@ public class Syntactic {
 		throw new IllegalArgumentException("Syntactical error!");
 	    }
 	}
+    }
+
+    public Token lookAhead() {
+	if(_tokenCount < _source.size()) {
+	    Token token = _source.get(_tokenCount);
+	    _tokenCount++;
+	    return token;
+	}
+	throw new IllegalArgumentException("Syntactical error!");
     }
 }
