@@ -3,6 +3,7 @@ package com.mcpl.lexer;
 public enum TokenTag {
     COMMENT("\\//.*$"),
     INTEGER("\\d+"),
+    FLOAT("\\d+\\.\\d+"),
     PLUS("\\+"),
     MINUS("\\-"),
     MULTI("\\*"),
@@ -24,6 +25,8 @@ public enum TokenTag {
     FUNCTION("lever:"),
     OBRACE("\\{"),
     CBRACE("\\}"),
+    OPARENTHESES("\\("),
+    CPARENTHESES("\\)"),
     VARIABLE("craft:"),
     TYPE("int|void"),
     IDENTIFIER("[A-Za-z_]\\w*"),

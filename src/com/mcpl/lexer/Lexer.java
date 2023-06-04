@@ -35,6 +35,8 @@ public class Lexer {
     public TokenTag findTokenTag(String token) {
 	if(token.matches(TokenTag.INTEGER.regex())) {
 	    return TokenTag.INTEGER;
+	} else if (token.matches(TokenTag.FLOAT.regex())) {
+	    return TokenTag.FLOAT;
 	} else if (token.matches(TokenTag.PLUS.regex())) {
 	    return TokenTag.PLUS;
 	} else if (token.matches(TokenTag.MINUS.regex())) {
@@ -77,6 +79,10 @@ public class Lexer {
 	    return TokenTag.OBRACE;
 	} else if (token.matches(TokenTag.CBRACE.regex())) {
 	    return TokenTag.CBRACE;
+	} else if (token.matches(TokenTag.OPARENTHESES.regex())) {
+	    return TokenTag.OPARENTHESES;
+	} else if (token.matches(TokenTag.CPARENTHESES.regex())) {
+	    return TokenTag.CPARENTHESES;
 	} else if (token.matches(TokenTag.VARIABLE.regex())) {
 	    return TokenTag.VARIABLE;
 	} else if (token.matches(TokenTag.TYPE.regex())) {
