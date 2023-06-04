@@ -16,22 +16,16 @@ public class Syntactic {
     }
 
     public void analyze() {
-	for(int i = 0; i < _source.size(); i++) {
-	    System.out.println(_source.get(i).toString());
-	    System.out.println(_source.get(i).getTokenTag());
-	    TokenTag tag = _source.get(i).getTokenTag();
-	    switch(tag) {
-	    case tag.FUNCTION:
-		System.out.printf("lexer: ");
-		if(_source.get(i+1).getTokenTag() != null && _source.get(i).getTokenTag() == TokenTag.IDENTIFIER) {
-		    System.out.println("indentifier ");
-		} else {
-		    throw new IllegalArgumentException("Syntactical error!");
-		}	    
-		break;
-	    default:
-		throw new IllegalArgumentException("Syntactical error!");
-	    }
+	switch(lookAhead().getTokenTag()) {
+	case FUNCTION:
+	    System.out.println("lever:");
+	    analyze();
+	    break;
+	case EOF:
+	    System.out.println("<EOF>");
+	    break;
+	default:
+	    throw new IllegalArgumentException("Syntactical error!");
 	}
     }
 
